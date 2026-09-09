@@ -4,5 +4,15 @@
  * opening User.java in a second tab. Then add a static
  * {@code fromUser(User)} mapper as described in Part B.
  */
-public record UserDTO() {
+public record UserDTO(long id, String name, String email, boolean active) {
+
+    public static UserDTO fromUser(User u) {
+        return new UserDTO(u.getId(), u.getName(), u.getEmail(), u.isActive());
+    }
+
+    public static void main(String[] args) {
+        User user = new User(1L, "Alice", "alice@example.com", true);
+        UserDTO dto = UserDTO.fromUser(user);
+        System.out.println("Mapped UserDTO: " + dto);
+    }
 }
